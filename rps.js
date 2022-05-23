@@ -9,21 +9,21 @@ function computerPlay() {
 }
 
 
-function checkPlayerchoice(playerSelection){
-    if (!availableChoice.includes(playerSelection)) {
-        alert("Please only choose: Rock, Paper or Scissors!")
-        game();
-    }
+// function checkPlayerchoice(playerSelection){
+//     if (!availableChoice.includes(playerSelection)) {
+//         alert("Please only choose: Rock, Paper or Scissors!")
+//         game();
+//     }
 
-    else {
-        //pass
-    }
-}
+//     else {
+//         //pass
+//     }
+// }
 
 function playGame(playerSelection, computerSelection) {
     if (playerSelection == computerSelection){
         gameTie += 1;
-        return `Its a tie! \n Computer Selection: ${computerSelection} \n Player Selection: ${playerSelection}`;
+        return `Its a tie!`;
     }
 
     else if (playerSelection == 'rock' && computerSelection != 'paper'){
@@ -47,18 +47,63 @@ function playGame(playerSelection, computerSelection) {
     }
 }
 
-function game(){
-    for (let i = 0; i < 5; i++){
-        let playerSelection = window.prompt("Choose: Rock, Paper, Scissors").toLowerCase();
-        let computerSelection = computerPlay();
-        checkPlayerchoice(playerSelection)
-        console.log(playGame(playerSelection, computerSelection));
-    }
+// function game(){
+//     // for (let i = 0; i < 5; i++){
+//         // let playerSelection = window.prompt("Choose: Rock, Paper, Scissors").toLowerCase();
+//         let computerSelection = computerPlay();
+//         // checkPlayerchoice(playerSelection)
+//         // console.log(playGame(playerSelection, computerSelection));
+//     // }
 
-    alert(`Final Score \n Player: ${playerScore} \n Computer: ${computerScore}\n Ties: ${gameTie}`)
-}
-
-
+//     alert(`Final Score \n Player: ${playerScore} \n Computer: ${computerScore}\n Ties: ${gameTie}`)
+// }
 
 
-game();
+
+const userScore = document.querySelector('.player-score');
+const compScore = document.querySelector('.computer-score');
+const ties = document.querySelector('.ties');
+const result = document.querySelector('div');
+const btn = document.querySelectorAll('.btn');
+const winner = document.querySelector('.winner');
+
+btn.forEach(btn => {
+    btn.addEventListener('click', () => {
+        
+        
+        if (btn.className.includes('rock')) {
+            let computerSelection = computerPlay();
+            result.textContent = playGame('rock', computerSelection);
+        }
+
+        else if (btn.className.includes('paper')) {
+            let computerSelection = computerPlay();
+            result.textContent = playGame('paper', computerSelection);
+        }
+
+        else if (btn.className.includes('scissors')) {
+            let computerSelection = computerPlay();
+            result.textContent = playGame('scissors', computerSelection);
+        }
+        
+        if (playerScore <= 5 && computerScore <= 5){
+            userScore.textContent = `Player Score: ${playerScore}`;
+            compScore.textContent = `Computer Score: ${computerScore}`;
+            ties.textContent = `Ties: ${gameTie}`;
+
+            if (playerScore == 5) {
+                winner.textContent = 'PLAYER WINS';
+            }
+
+            else if (computerScore == 5) {
+                winner.textContent = 'COMPUTER WINS';
+            }
+        }
+        
+        
+    
+    });
+    
+
+
+});
